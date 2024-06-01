@@ -1,0 +1,82 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Seawave sensor reconfigurator</title>
+    <style>
+        .current-config{
+            color: #0000ff;
+            font-weight: bold;
+        }
+
+    </style>
+
+    <script src="static/js/struct.js"></script>
+    <script src="static/js/serialConfig.js"></script>
+
+    <!-- Refresh the page every second-->
+</head>
+<body onload="installSerial();">
+    <h1>Seawave Sensor reconfigurator</h1>
+
+    <div>
+        <h2>Information</h2>
+        <!-- <h3>How does it work?</h3> -->
+        How does it work?
+        <ol start="0">
+            <li>Use one of the following browsers: Chrome, Edge, Opera</li>
+            <li>Connect the sensor to your PC via the USB cable</li>
+            <li>Pair the node</li>
+            <li>Disconnect and Reconnect the device to enter update mode.</li>
+        </ol>
+        <b>Make sure to press apply after you changed the configuration.</b>
+    </div>
+   
+    <div>
+        <!-- TODO: hide -->
+        <button id="pairButton">PAIR</button>
+    </div>
+
+    <!-- <div>
+        <button onclick="connectSerial();">TEST</button>
+    </div> -->
+
+    <div>
+        <h2>Current configuration:</h2>
+        <button onclick="getConfig();">Get current config</button> <span id="config-status"></span>    
+        <table>
+            <tr>
+                <td>NodeID:</td>
+                <td id="nodeid" class="current-config">???</td>
+            </tr>
+            <tr>
+                <td>SSID:</td>
+                <td id="ssid" class="current-config">???</td>
+            </tr>
+            <tr>
+                <td>PASS:</td>
+                <td id="pass" class="current-config">???</td>
+            </tr>
+        </table>
+    </div>
+
+    <div>
+        <h2>New configuration:</h2>        
+        <!-- <p id=".nodeid">New nodeid <input></p> -->
+        <table>
+            <tr>
+                <td>New ssid</td>
+                <td><input id="new-ssid"></td>
+            </tr>
+            <tr>
+                <td>New pass</td>
+                <td><input id="new-pass"></td>
+            </tr>
+        </table>
+        <p><button onclick="updateNewConfig();">Upload new configuration</button> <span id="update-status"></span></p>
+        <button onclick="applyNewConfig();">Apply new configuration</button>
+    </div>
+
+
+</body>
+</html>
