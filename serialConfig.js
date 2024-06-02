@@ -220,7 +220,6 @@ async function updateNewConfig(){
   writer = port.writable.getWriter();
   await writer.write(new Uint8Array([0x88, 0x03]));
   await writer.write(newConfig.generateBytes());
-  await new Promise((resolve) => setTimeout(resolve, 100)); 
   await writer.write(new Uint8Array([0x99]));
 
   // close the writer
