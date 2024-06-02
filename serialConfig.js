@@ -56,7 +56,7 @@ function installSerial(){
             // Connect to `port` or add it to the list of available ports.
             // await port.open({baudRate:9600});
             // console.log("is open?");
-            alert("Succesfully paired device\nPlease disconnect and reconnect the device to enter update mode");
+            alert("Succesfully paired device\nPlease unplug and reinsert the device to enter update mode.");
           })
           .catch((e) => {
             // The user didn't select a port.
@@ -193,8 +193,6 @@ async function updateNewConfig(){
   busy = true;
   document.getElementById("update-status").innerText = "⏳";
 
-
-
   let newConfig = new nodeWifiConfig();
   newConfig.create(config.nodeID, newssid, newpass);
 
@@ -204,6 +202,7 @@ async function updateNewConfig(){
   queue = [];
   writer = port.writable.getWriter();
   await writer.write(req);
+  writer.releaseLock();
   console.log("req send");
 
   // wait a second for a response
@@ -218,8 +217,10 @@ async function updateNewConfig(){
   }
   
   queue = [];
+  writer = port.writable.getWriter();
   await writer.write(new Uint8Array([0x88, 0x03]));
   await writer.write(newConfig.generateBytes());
+  await new Promise((resolve) => setTimeout(resolve, 100)); 
   await writer.write(new Uint8Array([0x99]));
 
   // close the writer
@@ -250,7 +251,6 @@ async function applyNewConfig(){
   }
 
   busy = true;
-  
 
   const req = new Uint8Array([0x88, 0x06]);
 
