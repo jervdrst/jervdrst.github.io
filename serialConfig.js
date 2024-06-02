@@ -202,7 +202,7 @@ async function updateNewConfig(){
   queue = [];
   writer = port.writable.getWriter();
   await writer.write(req);
-  writer.releaseLock();
+
   console.log("req send");
 
   // wait a second for a response
@@ -217,7 +217,6 @@ async function updateNewConfig(){
   }
   
   queue = [];
-  writer = port.writable.getWriter();
   await writer.write(new Uint8Array([0x88, 0x03]));
   await writer.write(newConfig.generateBytes());
   await writer.write(new Uint8Array([0x99]));
