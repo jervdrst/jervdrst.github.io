@@ -194,8 +194,8 @@ async function updateNewConfig(){
   document.getElementById("update-status").innerText = "⏳";
 
   let newConfig = new nodeWifiConfig();
-  newConfig.create(11, newssid, newpass);
-  // newConfig.create(config.nodeID, newssid, newpass);
+  // newConfig.create(11, newssid, newpass);
+  newConfig.create(config.nodeID, newssid, newpass);
 
   const req = new Uint8Array([0x88, 0x02]);
 
